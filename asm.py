@@ -27,7 +27,7 @@ def lineasm(line : str):
         outp.write(y)
         outp.write(toBytes(op[2], 0))
     if op[0] == "RET":
-        outp.write(bytes(0xc3))
+        outp.write(bytes([0xc3]))
     if op[0] == "XOR":
         if op[1] == "AL":
             outp.write(bytes([0x34]))
@@ -45,6 +45,10 @@ def lineasm(line : str):
         outp.write(bytes([0xa3]))
         x = int(op[1], 16)
         outp.write(toBytesAddr(x))
+    if op[0] == "STI":
+        outp.write(bytes([0xfb]))
+    if op[0] == "CLI":
+        outp.write(bytes([0xfa]))
         
 
 lines = inp.readlines()
